@@ -24,27 +24,25 @@ img = cv2.imread('img1.jpeg')
 rows, cols, ch = img.shape
 
 ### Affine Transform ###
+# rotation, scaling, translation, shearing
 # Source points (3 points)
 pts1 = np.float32([[50, 50], [200, 50], [50, 200]])
 # Destination points (3 points)
 pts2 = np.float32([[10, 100], [200, 50], [100, 250]])
-
 # Get Affine Transform Matrix
 M_affine = cv2.getAffineTransform(pts1, pts2)
-
 # Apply Affine Transform
 dst_affine = cv2.warpAffine(img, M_affine, (cols, rows))
 
 
 ### Perspective Transform ###
 # Source points (4 points)
+# Viewpoint change, camera tilt correction, bird’s eye view
 pts1_p = np.float32([[56,65], [368,52], [28,387], [389,390]])
 # Destination points (4 points)
 pts2_p = np.float32([[0,0], [300,0], [0,300], [300,300]])
-
 # Get Perspective Transform Matrix
 M_perspective = cv2.getPerspectiveTransform(pts1_p, pts2_p)
-
 # Apply Perspective Transform
 dst_perspective = cv2.warpPerspective(img, M_perspective, (300, 300))
 
